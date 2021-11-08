@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.unibo.oop.lab.enum2;
+package it.unibo.oop.lab.nesting1;
 
 import java.util.HashSet;
 import java.util.Objects;
