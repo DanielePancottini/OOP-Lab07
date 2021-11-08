@@ -4,6 +4,7 @@
 package it.unibo.oop.lab.nesting1;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUserImpl;
@@ -49,16 +50,13 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      */
     public static final Sport BIKE;
 
-    /*
-     * TODO: initialize properly these sports
-     */
     static {
-        SOCCER = null;
-        F1 = null;
-        MOTOGP = null;
-        VOLLEY = null;
-        BASKET = null;
-        BIKE = null;
+        SOCCER = new Sport("soccer");
+        F1 = new Sport("f1");
+        MOTOGP = new Sport("motogp");
+        VOLLEY = new Sport("volley");
+        BASKET = new Sport("basket");
+        BIKE = new Sport("bike");
     }
 
     /**
@@ -98,13 +96,7 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
         super(name, surname, user, userAge);
         this.sports = new HashSet<>();
     }
-
-    /*
-     * [METHODS]
-     * 
-     * Implements all the methods below
-     */
-
+    
     /**
      * Add a new sport followed by this user: if the user already likes or does
      * the sport, nothing happens.
@@ -112,9 +104,8 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      * @param sport
      *            a sport followed/done by the user
      */
-    // TODO
     public void addSport(final Sport sport) {
-
+    	this.sports.add(sport);
     }
 
     /**
@@ -124,27 +115,57 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      *            sport to use as an input
      * @return true if a user likes sport s
      */
-    // TODO
-    public boolean hasSport(final Sport s) {
-        return false;
+    public boolean hasSport(final Sport s) { 
+    	return this.sports.contains(s);
     }
 
-    /*
-     * TODO
-     * 
-     * Complete the definition of this static inner class defining a Sport along
-     * with its bare name.
-     */
+    /**
+     * Static nested class which represents a sport that
+     * can be followed by {@link SportSocialNetworkUserImpl}
+     * */
     public static final class Sport {
-        /*
-         * TODO
-         * 
-         * Redefine equals so that two sports are equal only if they feature the
-         * very same name. Remember that you must also redefine hashCode()!
-         */
-        @Override
-        public boolean equals(final Object o) {
-            return false;
-        }
+    	
+    	private final String name;
+    	
+    	/**
+    	 * Builds a {@link Sport} with particular name
+    	 * 
+    	 * @param name 
+    	 * 				Name of the sport
+    	 * */
+    	public Sport(final String name) {
+    		this.name = name;
+    	}
+
+    	/**
+    	 * {@inheritDoc}
+    	 * */
+		@Override
+		public int hashCode() {
+			return Objects.hash(name);
+		}
+
+		/**
+		 * Equals method which returns true only if
+		 * both {@link Sport} have got the same name
+		 * 
+		 * @param obj
+		 * 				{@link Object} to compare with receiver
+		 * 
+		 * @return true
+		 * 				if both sports have got the same name
+		 * */
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Sport other = (Sport) obj;
+			return Objects.equals(name, other.name);
+		}
+    	   
     }
 }
