@@ -93,15 +93,16 @@ public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUs
      * @return the set of individual sport this user practices/follows
      */
      public Set<Sport> getIndividualSports() { 
-    	 Set<Sport> result = new HashSet<>();
+    	
+    	 return this.filterSportBy(new SportFilter() {
+			
+			@Override
+			public boolean test(Sport elem) {
+				return elem.isIndividualSport();
+			}
+			
+		});
     	 
-    	 for(Sport sport : this.sports) {
-    		 if(sport.isIndividualSport()) {
-    			 result.add(sport);
-    		 }
-    	 }
-    	 
-    	 return result;
      }
      
     
@@ -113,15 +114,39 @@ public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUs
      * @return the set of sport practiced in a given place
      */
      public Set<Sport> getSportPracticedInPlace(Place p) { 
+    	 
+    	 return this.filterSportBy(new SportFilter() {
+			
+			@Override
+			public boolean test(Sport elem) {
+				return elem.getPlace().equals(p);
+			}
+			
+		});
+    	 
+     }
+     
+     /*
+      * Utility method that creates a result list and populates it 
+      * with filtered items (as filter passed by arg)
+      * */
+     private Set<Sport> filterSportBy(SportFilter filter) {
     	 Set<Sport> result = new HashSet<>();
     	 
     	 for(Sport sport : this.sports) {
-    		 if(sport.getPlace().equals(p)) {
+    		 if(filter.test(sport)) {
     			 result.add(sport);
     		 }
     	 }
     	 
     	 return result;
+     }
+     
+     /*
+      * Utility interface to perform custom test for each filter type
+      * */
+     private interface SportFilter {
+    	 public boolean test(Sport elem);
      }
      
 }
