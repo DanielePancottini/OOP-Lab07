@@ -16,69 +16,67 @@ package it.unibo.oop.lab.enum2;
  * 
  */
 public enum Sport {
+	
+	BASKET (Place.INDOOR, 5, "Basket"),
+	VOLLEY (Place.INDOOR, 6, "Volley"),
+	TENNIS (Place.OUTDOOR, 1, "Tennis"),
+	BIKE (Place.OUTDOOR, 1, "Bike"),
+	F1 (Place.OUTDOOR, 1, "F1"),
+	MOTOGP (Place.OUTDOOR, 1, "MotoGP"),
+	SOCCER (Place.OUTDOOR, 11, "Soccer");
+	
+	private final String name;
+	private final int teamMemebers;
+	private final Place place;
 
-    /*
-     * TODO
-     * 
-     * Declare the following sports:
-     * 
-     * - basket
-     * 
-     * - volley
-     * 
-     * - tennis
-     * 
-     * - bike
-     * 
-     * - F1
-     * 
-     * - motogp
-     * 
-     * - soccer
-     * 
-     */
-
-    /*
-     * TODO
-     * 
-     * [FIELDS]
-     * 
-     * Declare required fields
-     */
-
-    /*
-     * TODO
-     * 
-     * [CONSTRUCTOR]
-     * 
-     * Define a constructor like this:
-     * 
-     * - Sport(final Place place, final int noTeamMembers, final String actualName)
-     */
-
-    /*
-     * TODO
-     * 
-     * [METHODS] To be defined
-     * 
-     * 
-     * 1) public boolean isIndividualSport()
-     * 
-     * Must return true only if called on individual sports
-     * 
-     * 
-     * 2) public boolean isIndoorSport()
-     * 
-     * Must return true in case the sport is practices indoor
-     * 
-     * 
-     * 3) public Place getPlace()
-     * 
-     * Must return the place where this sport is practiced
-     * 
-     * 
-     * 4) public String toString()
-     * 
-     * Returns the string representation of a sport
-     */
+	/**
+	 * Builds new sport by place, no team members and name
+	 * 
+	 * @param place
+	 * 				place to be set
+	 * @param noTeamMembers
+	 * 						no of team members to be set
+	 * @param actualName
+	 * 					name of sport to be set
+	 * */
+	Sport(final Place place, final int noTeamMembers, final String actualName) {
+		this.name = actualName;
+		this.place = place;
+		this.teamMemebers = noTeamMembers;
+	}
+	
+	/**
+	 * Checks if the receiver is an individual sport
+	 * 
+	 * @return true
+	 * 				if receiver's number of team members is equals to 1 
+	 * */
+	public boolean isIndividualSport() {
+		return this.teamMemebers == 1;
+	}
+	
+	/**
+	 * Checks if receiver is an indoor sport
+	 * 
+	 * @return true
+	 * 				if the receiver's place is equals to indoor
+	 * */
+	public boolean isIndoorSport() {
+		return this.place == Place.INDOOR;
+	}
+	
+	/**
+	 * @return receiver's {@link Place}
+	 * */
+	public Place getPlace() {
+		return this.place;
+	}
+	
+	/**
+	 * @return receiver's string representation
+	 * */
+	public String toString() {
+		return this.name + " , Team Members: " + this.teamMemebers + " , Place: " + this.place;
+	}
+	
 }
